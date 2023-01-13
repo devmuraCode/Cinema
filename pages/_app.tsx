@@ -1,6 +1,6 @@
-import '../styles/globals.scss'
+import '@/assets/styles/globals.scss'
 import type { AppProps } from 'next/app'
-import MainProvider from 'api/provider/MainProvider';
+import MainProvider from 'provider/MainProvider';
 
 
 function App({ Component, pageProps }: AppProps) {
