@@ -1,21 +1,26 @@
+import { FC } from 'react'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+
+import Button from '@/components/ui/form-elements/Button'
+import Heading from '@/components/ui/heading/Heading'
+
+
 import { useAuth } from '@/hooks/useAuth'
-import { FC, useState } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { IAuthInput } from './auth.interface'
-import { useAuthRedirect } from './useAuthRedirect'
 
 
 import styles from './Auth.module.scss'
-import Meta from 'utils/meta/Meta'
-import Heading from '@/components/ui/heading/Heading'
-import Button from '@/components/ui/form-elements/Button'
 import AuthFields from './AuthFields'
+import { useAuthRedirect } from './useAuthRedirect'
 import { useActions } from '@/hooks/userActions'
+import { IAuthInput } from './auth.interface'
+import Meta from 'utils/meta/Meta'
 
 const Auth: FC = () => {
 	useAuthRedirect()
 
 	const { isLoading } = useAuth()
+
 	const [type, setType] = useState<'login' | 'register'>('login')
 
 	const {
@@ -27,15 +32,17 @@ const Auth: FC = () => {
 		mode: 'onChange',
 	})
 
-	const {login, register} = useActions()
+	const { login, register } = useActions()
 
-
-	const onSubmit: SubmitHandler<IAuthInput> = (data) => {
-		if (type === 'login') login(data)
-		else if (type === 'register') register(data)
-
+	const onSubmit = (data: IAuthInput) => {
+		if (type === 'login') {
+			login(data)
+		} else if (type === 'register') {
+			register(data)
+		}
 		reset()
 	}
+
 	return (
 		<Meta title="Auth">
 			<section className={styles.wrapper}>
@@ -64,5 +71,4 @@ const Auth: FC = () => {
 		</Meta>
 	)
 }
-
 export default Auth
